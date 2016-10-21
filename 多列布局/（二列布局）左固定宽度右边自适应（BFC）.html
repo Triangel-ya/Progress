@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+	    <title>BFC的二列布局</title>
+	    <style media="screen">
+	      	body,html,div,p{
+	        	margin:0;
+	      	}
+	      	.left{
+		        width: 100px;
+		        float: left;
+		        background: red;
+		    }
+		    .right{
+		    	overflow: hidden;/*触发BFC块级格式化上下文，Block Formating Content*/
+		        background: green;
+		    }
+	    </style>
+	</head>
+	<body>
+	    <div class="main">
+	      	<div class="left"><p>left</p></div>
+        	<div class="right">
+          		<p>right</p><p>right</p>
+        	</div>
+	    </div>
+	</body>
+</html>

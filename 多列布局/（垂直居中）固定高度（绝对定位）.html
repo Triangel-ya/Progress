@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">  
+    <head>  
+        <meta charset="utf-8" />  
+        <meta content="IE=8" http-equiv="X-UA-Compatible"/>  
+        <title>CSS垂直居中</title>  
+        <style type="text/css">
+            /*
+            （1）居中的元素先设置绝对定位，相对于父元素left和top都偏移50%，此时其左上角位置就是在中间位置，
+            （2）然后在将元素的margin-left和margin-top都向左或者向上移动，移动距离为居中元素的一半
+            */
+            .container{
+                height: 500px;
+                width: 500px;
+                margin:0;
+                padding:0;
+                position: relative;
+                background-color: blue;
+            } 
+            .box{
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                width:200px;
+                height:200px;
+                margin-left:-100px;
+                margin-top:-100px;
+                background-color: red;
+            }
+        </style>  
+    </head>  
+    <body>  
+        <div class="container">
+            <div class="box"></div>
+        </div>
+    </body>  
+</html>

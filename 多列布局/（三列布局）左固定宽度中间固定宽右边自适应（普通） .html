@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>普通的三列布局</title>
+        <style media="screen">
+            body,html,div,p{
+                margin:0;
+            }
+            .left{
+                width: 100px;
+                float: left;
+                background: red;
+            }
+            .center{
+                width: 100px;
+                float: left;
+                background: blue;
+            }
+            .right{
+                overflow: hidden;
+                background:green;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <div class="left"><p>left</p></div>
+            <div class="center"><p>left</p></div>
+            <div class="right">
+                <p>right</p><p>right</p>
+            </div>
+        </div>
+    </body>
+</html>

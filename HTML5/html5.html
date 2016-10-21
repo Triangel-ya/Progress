@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>HTML5大致情况</title>
+		<meta name="author" content="Triangel">
+		<meta name="tip" content="转载请联系本人,邮箱：linjinxia_ya@163.com">
+		<!--[if lt IE 9]> 
+			<script src="http://cdn.static.runoob.com/libs/html5shiv/3.7/html5shiv.min.js"></script> 
+		<![endif]--> 
+		<style>
+			section {
+				display: block;
+				background-color: #ddd;
+				padding: 50px;
+				font-size: 30px;
+			} 
+		</style> 
+	</head>
+
+	<body>
+		<time datatime="2016-10-7">
+			今天是2016年10月7日
+		</time>
+		<br/>
+
+		<command>
+			命令按钮
+		</command>
+		<br/>
+
+		<!-- 进度条 -->
+		<progress value='50' max="100"></progress>
+		<meter min='0' max='10' low='3' high='7' optimum='9' value='7'></meter>
+
+		<!-- 折叠 -->
+		<details>
+			<summary>This is a heading.</summary>
+			This is the content of the article,you can click the heading to see the whole article.
+		</details>
+
+		<br/>
+
+		<!-- 表单新属性 -->
+		<form action="">
+		  E-mail: <input type="email" name="usremail">
+		  Month：<input type="month" name="">
+		  <input type="submit">
+		</form>
+
+		<!-- keygen加密 -->
+		<form action="demo_keygen.asp" method="get">
+			用户名: <input type="text" name="usr_name">
+			加密: <keygen name=""/>
+			<input type="submit">
+		</form>
+
+		<!-- output输出 -->
+		<form oninput='x.value = parseInt(a.value) + parseInt(b.value)'>
+			0<input name="a" type="range" min='0' max='100' value="0">100 +
+			<input name="b" type="number" value="0"> = 
+			<output name="x" for='a b'></output>
+		</form>
+
+		<!-- 音频 -->
+		<p>音频：</p>
+		<audio controls muted>
+		  <source src="Iamhappy.ogg" type="audio/ogg">
+		  <source src="Iamhappy.mp3" type="audio/mpeg">
+		  您的浏览器不支持 audio 元素。
+		</audio>
+
+		<br/>
+
+		<p>视频：</p>
+		<video width="320" height="240" controls preload>
+			<source src="love.mp4" type="video/mp4">
+			<source src="love.ogg" type="video/ogg">
+			您的浏览器不支持 video 标签。
+		</video>
+
+		<br>
+
+		<embed src="http://w3schools.com/tags/helloworld.swf" tppabs="http://w3schools.com/tags/helloworld.swf">
+
+		<br/>
+
+		<canvas id="myCanvas0" width="200" height="100" style="border:1px solid #d3d3d3;"></canvas>
+		<canvas id="myCanvas" width="200" height="100" style="border:1px solid #d3d3d3;"></canvas>
+		<canvas id="myCanvas1" width="200" height="100" style="border:1px solid #d3d3d3;"></canvas>
+
+		<input type="button" id="btn" value="按钮">
+
+		<script type="text/javascript">
+			var c=document.getElementById("myCanvas0");
+			var ctx=c.getContext("2d");
+			ctx.beginPath();
+			ctx.moveTo(10,10);
+			ctx.lineTo(10,70);
+			ctx.lineTo(70,70);
+			ctx.closePath();
+			ctx.fillStyle = "red";
+			ctx.fill();
+			ctx.lineWidth = 5;
+			ctx.strokeStyle = "black";
+			ctx.stroke();
+
+			ctx.beginPath();
+			ctx.moveTo(80,80);
+			ctx.lineTo(90,90);
+			ctx.closePath();
+			ctx.strokeStyle = "pink";
+			ctx.stroke();
+
+			var c=document.getElementById("myCanvas1");
+			var ctx=c.getContext("2d");
+			//线性渐变
+			ctx.beginPath();
+			// Create gradient
+			var grd=ctx.createLinearGradient(0,0,200,0);
+			grd.addColorStop(0,"red");
+			grd.addColorStop(1,"white");
+
+			// Fill with gradient
+			ctx.fillStyle=grd;
+			ctx.closePath();
+			ctx.fillRect(10,10,150,80);
+
+			var c=document.getElementById("myCanvas");
+			var ctx=c.getContext("2d");
+			//圆形渐变
+			ctx.beginPath();
+			// Create gradient
+			var grd=ctx.createRadialGradient(75,50,5,90,60,100);
+			grd.addColorStop(0,"red");
+			grd.addColorStop(1,"white");
+			// Fill with gradient
+			ctx.fillStyle=grd;
+			ctx.closePath();
+			ctx.fillRect(10,10,150,80);
+
+
+			//优雅的代码
+			(function(){
+				var init = function(){
+					var bt = document.getElementById("btn");
+					var fun1 = function(){
+						console.log("this is fun1.");
+					};
+					btn.addEventListener('click',fun1,false);
+				};
+				window.addEventListener("load",init,false);
+			})();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>event事件</title>
+    <style type="text/css">
+        #menu{
+        	background-color: pink;
+        	display: none;
+        	width: 100px;
+        	height: 50px;
+        	color: white;
+        }
+        #tip{
+        	border:1px solid pink;
+        	margin:20px 0;
+        	padding:20px;
+        }
+        #div{
+        	border:1px solid blue;
+        	padding:20px;
+        }
+    </style>
+
+    <script type="text/javascript">
+    	//DOMContentLoaded：DOM树加载完之后触发。
+    	if(window.addEventListener){
+	    	window.addEventListener("DOMContentLoaded",function(){
+	    		var result = document.getElementById("result");
+	    		result.innerHTML = "DomContentLoaded只能在IE9及其以上、其他浏览器有效，DomContentLoaded";
+	    	},false);
+	    }
+        window.onload = function(){
+        	var btn = document.getElementById("btn");
+        	var div = document.getElementById("div");
+        	var ipt = document.getElementById("ipt");
+        	var result = document.getElementById("result");
+
+			if(btn.addEventListener){
+	        	//右键显示菜单
+	        	btn.addEventListener("contextmenu",function(event){
+	        		event.preventDefault(); //取消事件的默认行为
+	        		var menu = document.getElementById("menu");
+	        		menu.style.left = event.clientX + "px";
+	        		menu.style.top = event.clientY + "px";
+	        		menu.style.display = "block";
+	        	});
+	        	document.addEventListener("click",function(){
+	        		document.getElementById("menu").style.display = "none";
+	        	});
+
+	        	//卸载之前触发事件
+	        	btn.addEventListener("beforeunload",function(event){
+	        		var message = "确定离开吗/(ㄒoㄒ)/~~";
+	        		event.returnValue = message;
+	        		return message;
+	        	});
+
+	        	//IE9及其他浏览器
+				div.addEventListener("click",function(){
+					console.log("事件阶段，1是捕获，2是处于目标，3是冒泡。现在处于：" + event.eventPhase);
+					result.innerHTML = "事件阶段，1是捕获，2是处于目标，3是冒泡。现在处于：" + event.eventPhase;
+				},false);
+
+				btn.addEventListener("click",function(event){
+					event.preventDefault();
+					console.log("事件是否冒泡：" + event.bubbles);
+					console.log("是否可以取消事件的默认行为：" + event.cancelable);
+					console.log("事件处理程序当前正在处理事件的元素：" + event.currentTarget);
+					console.log("是否调用了preventDefault()" + event.defaultPrevented);
+					console.log("事件相关细节：" + event.detail);
+					console.log("事件阶段，1是捕获，2是处于目标，3是冒泡：" + event.eventPhase);
+					console.log("取消事件的默认行为：" + event.preventDefault());
+					console.log("取消事件的进一步冒泡或捕获,同时组织任何事件处理程序被调用：" + event.stopImmediatePropagation());
+					console.log("取消事件的进一步冒泡或捕获：" + event.stopPropagation());
+					console.log("事件的目标：" + event.target);
+					console.log("true浏览器生成，false开发人员通过js创建：" + event.trusted);
+					console.log("被触发的事件类型：" + event.type);
+					console.log("与事件关联的抽象视图：" + event.view);
+					if(event.altKey){
+						console.log("alt");
+					}
+					var str = "事件是否冒泡：" + event.bubbles + "<br>"
+							+ "是否可以取消事件的默认行为：" + event.cancelable + "<br>"
+							+ "事件处理程序当前正在处理事件的元素：" + event.currentTarget + "<br>"
+							+ "是否调用了preventDefault()" + event.defaultPrevented + "<br>"
+							+ "事件相关细节：" + event.detail + "<br>"
+							+ "事件阶段，1是捕获，2是处于目标，3是冒泡：" + event.eventPhase + "<br>"
+							+ "取消事件的默认行为：" + event.preventDefault() + "<br>"
+							+ "取消事件的进一步冒泡或捕获,同时组织任何事件处理程序被调用：" + event.stopImmediatePropagation() + "<br>"
+							+ "取消事件的进一步冒泡或捕获：" + event.stopPropagation() + "<br>" 
+							+ "事件的目标：" + event.target + "<br>"
+							+ "true浏览器生成，false开发人员通过js创建：" + event.trusted + "<br>"
+							+ "被触发的事件类型：" + event.type + "<br>"
+							+ "与事件关联的抽象视图：" + event.view
+					result.innerHTML = str;
+				},false);
+				//当用户再可编辑区域输入字符时触发该事件，与keypress不同的是，该事件只会在用户输入可视字符时触发
+				ipt.addEventListener("textInput",function(event){
+					console.log(event.data);
+				},false);
+			}
+			if(btn.attachEvent){
+	        	//IE中的DOM事件处理，IE8及其以下
+	        	btn.attachEvent("onclick",function(event){
+	        		console.log("取消事件冒泡：" + event.cancelBubble);
+	        		console.log("事件的目标：" + event.srcElement);
+	        		console.log("取消事件的默认行为：" + event.returnValue);
+	        		var str = "取消事件冒泡：" + event.cancelBubble + "<br>"
+	        				+ "事件的目标：" + event.srcElement + "<br>"
+	        				+ "取消事件的默认行为：" + event.returnValue;
+	        		result.innerHTML = str;
+	        	});
+			}
+        }
+    </script>
+</head>
+<body>
+	<div id="tip">
+		<p>
+			<b>DOM事件处理程序：</b><br>
+			1.在IE9以及其他浏览器下点击“测试”按钮可以查看事件的各个属性代表的意义以及当前的属性值<br>
+			2.在IE8及其以下的IE版本浏览器，点击“测试”按钮可以查看IE的DOM事件属性<br>
+			3.右击“测试”按钮可以看到自定义的菜单<br/>
+			4.点击div范围内所有区域可以知道当前点击的区域是处理哪个事件阶段
+		</p>
+		<p>结果：</p>
+		<div id="result">
+			
+		</div>
+	</div>
+	<div id="div">
+		<p>这是div</p>
+		<button id="btn">测试</button>
+		<input type="text" id="ipt">
+		<ul id="menu">
+			<li>自己</li>
+			<li>浏览</li>
+		</ul>
+	</div>
+	<img src="logo4.png">
+</body>
+</html>

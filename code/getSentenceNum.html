@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+
+	</style>
+	<script type="text/javascript">
+		//计算一个句子中单词对应的个数，以对象的格式输出
+		function getSentenceNum(str){
+		  var arr = str.split(" ");
+		  var len = arr.length;
+		  var flags = [];
+		  var json = {};
+		  for(var i=0; i<len; i++){
+		    flags.push(1);
+		  }
+		  for(var i=0; i<len; i++){
+		     if(!flags[i]){
+		        continue;
+		     }
+		     var each = arr[i];
+		     json[each] = 1;
+		     for(var j=i+1; j<len; j++){
+		       if(each == arr[j]){
+		       	flags[j] = 0;
+		          json[each]++;
+		       }
+		     }
+		  }
+		  return json;
+		}
+		var str = 'This is a pig';
+		var json = getSentenceNum(str);
+		console.log(json);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>最长括号匹配问题</title>	
+	<script type="text/javascript">
+		//动态规划
+		/*function longestValidParentheses(s)
+		{
+			var i,j,n;
+			var dp = [];
+			var max=0;
+			var n=s.length;
+			for(i=0;i<n;i++)
+				dp[i]=0;
+			for(i=n-2;i>=0;i--)
+			{
+				if(s[i]=='(')
+				{
+					j=i+1+dp[i+1];
+					if(j<n && s[j]==')')
+					{
+						dp[i]=dp[i+1]+2;
+						
+					}
+				}else{
+					dp[i]=dp[i+1];
+				}
+				if(max<=dp[i])
+					max=dp[i];
+			}
+			return max;
+		}*/
+
+		//出栈入栈
+		function longestValidParentheses(s)
+		{
+			var i,j,n;
+			var dp = [];
+			var max=0;
+			var n=s.length;
+			console.log(n);
+			for(i=0; i<n; i++){
+				if(s[i] == '('){
+					dp.push('(');
+				}
+				if(s[i]==')' && dp.length>0){
+					dp.pop();
+					max += 2;
+				}
+			}
+			return max;
+		}
+		function test(){
+			var s = document.getElementById("ipt").value;
+			var result = document.getElementById("result");
+			result.innerHTML = longestValidParentheses(s);
+		}
+	</script>
+	</head>
+<body>
+	输入只包含括号的串：<input type="text" id="ipt">
+	<input type="button" value="测试" onclick="test()">
+	<p>结果是：<span id="result"></span></p>
+</body>
+</html>

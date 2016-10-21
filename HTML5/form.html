@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>form表单</title>
+	<meta charset='utf-8'>
+	<meta name="author" content="Triangel">
+	<meta name="tip" content="转载请联系本人,邮箱：linjinxia_ya@163.com">
+	<style type="text/css">
+		li{
+			list-style: none;
+			margin: 10px 0;
+		}
+		li span{
+			display: inline-block;
+			width: 85px;
+		}
+		input:required{
+			background-color: lightyellow;
+		}
+		input:invalid{
+			background-color: #ffd4d4;
+			border:1px solid red;
+		}
+	</style>
+</head>
+<body>
+	<form name="order" method="post" action="">
+		<h1>订单详情</h1>
+
+		<fieldset>
+			<legend>联系方式</legend>
+			<ul>
+				<li>
+					<label>
+						<span>全称：</span>
+						<input type="text" name="name" required autofocus>
+					</label>
+				</li>
+				<li>
+					<label>
+						<span>邮箱：</span>
+						<input type="email" name="email" required>
+					</label>
+				</li>
+				<li>
+					<label>
+						<span>住址：</span>
+						<input type="address1" placeholder="address line1">
+					</label>
+					<input type="address2" placeholder="address line2">
+					<input name="city" class="city" placeholder="Town/City">
+					<input name="state" class="state" placeholder="State">
+					<input name="zip" class="zip" placeholder="Zip Code">
+					<select name="country">
+						<option value="0">Country</option>
+						<option value="US">United State</option>
+						<option value="CA">Canada</option>
+					</select>
+				</li>
+				<li>
+					<label>
+						<span>家庭电话：</span>
+						<input type="tel" name="homephone">
+					</label>
+				</li>
+				<li>
+					<label>
+						<span>个人电话：</span>
+						<input type="tel" name="cellphone">
+					</label>
+				</li>
+				<li>
+					<label>
+						<span>网络名：</span>
+						<input name="skype">
+					</label>
+				</li>
+				<li>
+					<label>
+						<span>推特：</span>
+						@<input name="Twitter">
+					</label>
+				</li>
+			</ul>
+		</fieldset>
+		
+		<fieldset>
+			<legend>登陆详情</legend>
+			<ul>
+				<li>
+					<label>
+						<span>密码：</span>
+						<input type="password" name="password" required>
+					</label>
+				</li>
+				<li>
+					<label>
+						<span>确认密码：</span>
+						<input type="password" name="confirm_password" required>
+					</label>
+				</li>
+			</ul>
+		</fieldset>
+
+		<fieldset>
+			<legend>Order Details</legend>
+			<ul>
+				<li>
+					<label>
+						<span>输入数量：</span>
+						<input type="number" data-price="49.9" name="quantity" value="0" min="0" max="99" maxlength="2">
+					</label>
+				</li>
+			</ul>
+		</fieldset>
+		
+		<fieldset>
+			<legend>Payment Details</legend>
+			<ul>
+				<li>
+					<label>
+						<span>银行卡</span>
+						<input name="card" pattern="[0-9]{13,16}" maxlength="16" required title="13-16个数字,不能有空格">
+					</label>
+				</li>
+				<li>
+					<label>
+						<span>开卡日期:</span>
+						<input type="month" maxlength="7" required value="2015-06" placeholder="YYYY-MM">
+					</label>
+				</li>
+				<li>
+					<label>
+						<span>银行卡</span>
+						<input name="card" pattern="[0-9]{13,16}" maxlength="16" required title="13-16个数字,不能有空格">
+					</label>
+				</li>
+			</ul>
+		</fieldset>
+		
+		<div class="buttons">
+			<input type="submit" value="Submit Order">
+			<input type="submit" value="Save Order" id="saveOrder" formnovalidate formaction="/save">
+		</div>
+	</form>
+</body>
+</html>

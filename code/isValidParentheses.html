@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>括号是否匹配问题</title>	
+	<script type="text/javascript">
+		//出栈入栈
+		function isValidParentheses(s)
+		{
+			var i,j,n;
+			var dp = [];
+			var max=0;
+			var n=s.length;
+			console.log(n);
+			for(i=0; i<n; i++){
+				if(s[i] == '('){
+					dp.push('(');
+				}
+				if(s[i]==')' && dp.length<=0){
+					return false
+				}
+				if(s[i]==')' && dp.length>0){
+					dp.pop();
+				}
+			}
+			if(dp.length != 0){
+				return false;
+			}
+			return true;
+		}
+		function test(){
+			var s = document.getElementById("ipt").value;
+			var result = document.getElementById("result");
+			if(isValidParentheses(s)){
+				result.innerHTML = "true";
+			}
+			else{
+				result.innerHTML = "false";
+			}
+		}
+	</script>
+	</head>
+<body>
+	输入只包含括号的串：<input type="text" id="ipt">
+	<input type="button" value="测试" onclick="test()">
+	<p>结果是：<span id="result"></span></p>
+</body>
+</html>

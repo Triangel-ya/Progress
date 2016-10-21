@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>排序</title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		//http://blog.csdn.net/morewindows/article/details/6668714
+
+		//冒泡排序
+		//原理：每一次都从头开始，比较两个数，前大后小就交换，然后移动到下一位（即刚刚的第二位），继续比较。外层for循环：outer:n-->2(即n-1次),内层的for循环:0-->outer-1;每次循环完最大的那个数就排列在了最后一位，以此类推。
+		function bubbleSort(arr){
+			var n = arr.length;
+			var tmp;
+			for(var i=n; i>=2; i--){
+				for(var j=0; j<i-1; j++){
+					if(arr[j] > arr[j+1]){
+						tmp = arr[j+1];
+						arr[j+1] = arr[j];
+						arr[j] = tmp;
+					}
+				}
+			}
+			console.log(arr);
+		}
+
+		//选择排序
+		//依次从0开始取，与后面的每一位相比较，小的就赋值给第一位，一轮之后第一个为最小的一个，之后重复，依次是第二小、第三小...，到最后两个相比较得出结果。
+		function selectionSort(arr){
+			var n = arr.length;
+			var temp;
+			for(var i=0; i<n-1; i++){
+				for(var j=i+1; j<n; j++){
+					if(arr[j] < arr[i]){
+						tmp = arr[i];
+						arr[i] = arr[j];
+						arr[j] = tmp;
+					}
+				}
+			}
+			console.log(arr);
+		}
+
+		//插入排序
+		//将即将插入的数与原本插入的数比较，比较大的就王后移动
+		function insertSort(arr){
+			var n = arr.length;
+			var j;
+			for(var i=1; i<n; i++){
+				j = i;
+				while(j>0 && arr[j-1]>arr[i]){
+					arr[j] = arr[j-1];
+					j--; 
+				}
+				arr[j] = arr[i];
+			}
+			console.log(arr);
+		}
+
+		function shellsort1(a)  
+		{  
+		    var i, j, gap;  
+		  	var n = a.length;
+		    for (gap = n / 2; gap > 0; gap /= 2) //步长  
+		        for (i = 0; i < gap; i++)        //直接插入排序  
+		        {  
+		            for (j = i + gap; j < n; j += gap)   
+		                if (a[j] < a[j - gap])  
+		                {  
+		                    var temp = a[j];  
+		                    var k = j - gap;  
+		                    while (k >= 0 && a[k] > temp)  
+		                    {  
+		                        a[k + gap] = a[k];  
+		                        k -= gap;  
+		                    }  
+		                    a[k + gap] = temp;  
+		                }  
+		        }
+		    console.log(a);  
+		}
+
+		var a = [8,9,1,4,6,2,0,5,7];
+		selectionSort(a);
+	</script>
+</head>
+<body>
+
+</body>
+</html>
+
+
+process.stdin.resume();
+process.stdin.setEncoding('ascii');
+
+var input = "";
+var input_array = "";
+
+process.stdin.on('data', function (data) {
+    input += data;
+});
+
+process.stdin.on('end', function () {
+    input_array = input.split("\n");
+    var nLine = 0;
+
+    while(nLine < input_array.length){
+    	var line = input_array[nLine++].trim();
+        var exp = /\d/g;
+    	if(line === '' && exp.test(line)){
+    		continue;
+    	}
+        var input_arrays = line.split(' ');
+        var numA = input_arrays[0];
+        var numDA = input_arrays[1];
+        var numB = input_arrays[3];
+        var numDB = input_arrays[4];
+        var numDAarr = "",numDBarr = "";
+        for(var i=0,len=numA.length; i<len; i++){
+            if(numA[i] == numDA){
+                numDAarr += numA[i];
+            }
+        }
+        for(var i=0,len=numB.length; i<len; i++){
+            if(numB[i] == numDB){
+                numDBarr += numB[i];
+            }
+        }
+        console.log(parseInt(numDBarr)+parseInt(numDAarr));
+    }
+});

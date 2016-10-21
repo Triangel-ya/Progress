@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>斐波那咧数列</title>
+	<meta charset='utf-8'>
+	<script type="text/javascript">
+		function Fibonacci(n){
+			var val = [];
+			for(var i=0; i<=n; i++){
+				val[i] = 0;
+			}
+			if(n == 0){
+				return 0;
+			}
+			else if(n == 1 || n == 2){
+				return 1;
+			}
+			else{
+				val[1] = 1;
+				val[2] = 1;
+				for(var i=3; i<=n; i++){
+					val[i] = val[i-1] + val[i-2];
+				}
+				return val[n];
+			}
+		}
+		window.onload = function(){
+			var btn = document.getElementById("btn");
+			var result = document.getElementById("result");
+			btn.onclick = function(){
+				var ipt = document.getElementById("ipt").value;
+				result.innerHTML = Fibonacci(parseInt(ipt));
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type="text" id="ipt">
+	<input type="button" id="btn" value="测试">
+	<br/>
+	结果：
+	<span id="result">
+		
+	</span>
+</body>
+</html>

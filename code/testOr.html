@@ -1,0 +1,92 @@
+<script type="text/javascript">
+	//题目：求十进制数的异或之后的数与10比较大小，计算比10大的数的个数。
+	//思路：将十进制数转化为二进制，之后求异或，再将异或之后的二进制结果转化为十进制。
+
+	//10进制转化成2进制
+	function TenToBin(num){
+		var arrResult = [];
+		var eachNum = "";
+		while(num > 0){
+			arrResult.push(num%2);
+			num = Math.floor(num/2);
+		}
+		while(arrResult.length>0){
+			eachNum += arrResult.pop(); 
+		}
+		return eachNum;
+	}
+
+	//2进制转为10进制
+	function BinToTen(num){
+		var count = 0;
+		var result = 0;
+		var len = num.length;
+		for(var i=len-1; i>=0; i--){
+			var to = 1;
+			for(var j=0; j<count; j++){
+				to *= 2; 
+			}
+			result += parseInt(num[i])*to;
+			count++;
+		}
+		return result;
+	}
+
+	//异或函数
+	function Or(a,b){
+		var len;
+		var aL = a.length;
+		var bL = b.length;
+		var result = [];
+		var num = '';
+		if(aL > bL){
+			console.log('1')
+			for(var i=bL; i<=aL; i++){
+				b = '0'+b;
+			}
+			len = aL;
+		}
+		else{
+			for(var i=aL; i<bL; i++){
+				a = '0' + a;
+			}
+			len = bL;
+		}
+		for(var i=len-1; i>=0; i--){
+			if(a[i] == b[i]){
+				result.push('0');
+			}
+			else{
+				result.push('1');
+			}
+		}
+		while(result.length > 0){
+			num += result.pop();
+		}
+		return num;
+	}
+
+	function testOr(){
+		var arr = [6,5,10]; //这个是传进来的数组
+		var max = 10; //这个是用于比较的那个数
+		var Barr = [];
+		var len = arr.length;
+		var count = 0;
+		for(var i=0; i<len; i++){
+			var eachNum = TenToBin(arr[i]);
+			Barr.push(eachNum);
+		}
+		for(var i=0; i<len-1; i++){
+			for(var j=i+1; j<len; j++){
+				var num = Or(Barr[i],Barr[j]);
+				num = BinToTen(num);
+				if(num > max){
+					count++;
+				}
+			}
+		}
+		alert(count);
+	}
+
+	testOr();
+</script>

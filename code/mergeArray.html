@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>合并多个数组</title>
+	<meta charset='utf-8'>
+	<script type="text/javascript">
+		//数组去重
+		function isCommon(each,arr){
+			var flag = false;
+			for(var i=0,len=arr.length; i<len; i++){
+				if(arr[i] === each){
+					flag = true;
+				}
+			}
+			return flag;
+		}
+		//快速排序
+		function qSort(arr){
+			var index = arr[0];
+			var lessArr = [];
+			var largeArr = [];
+			var len = arr.length;
+			var i = 1;
+			if(len === 0){
+				return [];
+			}
+			for(; i<len; i++){
+				if(arr[i] < index){
+					lessArr.push(arr[i]);
+				}
+				else if(arr[i] > index){
+					largeArr.push(arr[i]);
+				}
+			}
+			return qSort(lessArr).concat(index,qSort(largeArr));
+		}
+		//主函数，数组合并
+		function mergeArray(){
+			var len = arguments.length;
+			var arr = [];
+			var result = [];
+			for(var i=0; i<len; i++){
+				arr = arr.concat(arguments[i]);
+			}
+			/*for(var i=0,arrL=arr.length; i<arrL; i++){
+				if(!isCommon(arr[i],result)){
+					result.push(arr[i]);
+				}
+			}*/
+			return qSort(arr);
+		}
+		/*window.onload = function(){
+			var add = document.getElementById("add");
+			add.onclick = function(){
+				var iptDiv = document.getElementById("iptDiv");
+				var len = iptDiv.getElementsByTagName("input").length;
+				var str = iptDiv.innerHTML + "<p>请输入数组" + (len+1) + "：<input type='text'><p>";
+				iptDiv.innerHTML = str;
+			}
+		}*/
+
+		function test(){
+			var iptDiv = document.getElementById("iptDiv");
+			var result = document.getElementById("result");
+			var iptArr = iptDiv.getElementsByTagName("input");
+			var len = iptArr.length;
+			var iptArr0R = [];
+			var iptArr1R = [];
+			var iptArr0 = iptArr[0].value.split(",");
+			var iptArr1 = iptArr[1].value.split(",");
+			for(var i=0,len=iptArr0.length; i<len; i++){
+				iptArr0R.push(iptArr0[i]);
+			}
+			for(var i=0,len=iptArr1.length; i<len; i++){
+				iptArr1R.push(iptArr1[i]);
+			}
+			result.innerHTML = mergeArray(iptArr0R,iptArr1R);
+		}
+
+	</script>
+</head>
+<body>
+	<input type="button" value="添加数组" id="add" />
+	<div id="iptDiv">
+		<p>数组A：<input type="text"></p>
+		<p>数组B：<input type="text"></p>
+	</div>
+	<input type="button" value="测试" onclick="test()">
+	<p>结果是：<span id="result"></span></p>
+</body>
+</html>

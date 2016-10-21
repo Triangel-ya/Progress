@@ -1,0 +1,111 @@
+<html>
+	<head>
+		<title>判断是否为回文串</title>
+		<meta charset = 'utf-8'>
+		<style type="text/css">
+			#result{font-size:20px;width:100%;height:100%;border:none;outline:none;}
+		</style>
+		<script type="text/javascript">
+			/*
+			问题描述：判断给定的字符串，如果字符串是一个Palindromes，那么返回true，反之返回false
+					Palindromes是一个词或一个名字，在忽略标点符号和间距之下，前后指写方式相同
+			测试用例：isPalindrome("race car")返回true
+					isPalindrome("not a palindrome")返回false
+					isPalindrome("A man, a plan, a canal. Panama")返回true
+					isPalindrome("never odd or even")返回true
+					isPalindrome("nope") 返回false
+					isPalindrome("almostomla")返回false
+					isPalindrome("My age is 0, 0 si ega ym.")返回true
+					isPalindrome("1 eye for of 1 eye.")返回false
+					isPalindrome("0_0 (: /-\ :) 0–0")返回true
+					isPalindrome("我爱妈妈，妈妈爱我")返回true
+			参考资料：http://www.w3cplus.com/javascript/palindrome-check-in-javascript.html
+			*/
+
+			//方法一：利用reverse反转，判断两字符串是否全相等
+			function isPalindrome1(str){
+				var re = /[\W_]/g; // 或者 var re = /[^A-Za-z0-9]/g;
+				var str = str.replace(re,'').toUpperCase();
+				var anotherStr = str.split('').reverse().join('');
+				return str === anotherStr;
+			}
+
+			//方法二：将字符头与尾相比较
+			function isPalindrome2(str){
+				var re = /[\W_]/g; // 或者 var re = /[^A-Za-z0-9]/g;
+				var str = str.replace(re,'').toUpperCase();
+				var flag = true;
+				for(var i=0,j=str.length-1; i<j; i++,j--){
+					if(str[i] !== str[j]){
+						flag = false;
+						break;
+					}
+				}
+				return flag;
+			}
+
+			//方法三：利用递归
+			function isPalindrome3(str){
+				var re = /[^0-9a-zA-Z]/g;
+				var str = str.replace(re,'').toUpperCase();
+				if(str.length === 0 || str.length === 1){
+					return true;
+				}
+				if(str[0] !== str[str.length-1]){
+					return false;
+				}
+				else{
+					return isPalindrome3(str.substring(1,str.length-1))
+				}
+			}
+
+			window.onload = function(){
+				var first = document.getElementById("first");
+				var second = document.getElementById("second");
+				var third = document.getElementById("third");
+				var result = document.getElementById("result");
+				first.onclick = function(){
+					var str = document.getElementById("str").value;
+					var output = "方法一的代码：\n" + isPalindrome1;
+					if(isPalindrome1(str)){
+						output += "\nisPalindrome1测试结果：true";
+					}
+					else{
+						output += "\nisPalindrome1测试结果：false";
+					}
+					result.innerHTML = output;
+				}
+				second.onclick = function(){
+					var str = document.getElementById("str").value;
+					var output = "方法二的代码：\n" + isPalindrome2;
+					if(isPalindrome2(str)){
+						output += "\nisPalindrome2测试结果：true";
+					}
+					else{
+						output += "\nisPalindrome2测试结果：false";
+					}
+					result.innerHTML = output;
+				}
+				third.onclick = function(){
+					var str = document.getElementById("str").value;
+					var output = "方法三的代码：\n" + isPalindrome3;
+					if(isPalindrome3(str)){
+						output += "\nisPalindrome3测试结果：true";
+					}
+					else{
+						output += "\nisPalindrome3测试结果：false";
+					}
+					result.innerHTML = output;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		输入字符串：<input type="text" id="str" value=""><br/>
+		<input type="button" value="方法一" id="first">
+		<input type="button" value="方法二" id="second">
+		<input type="button" value="方法三" id="third">
+		<textarea id="result" readonly="readonly">
+		</textarea>
+	</body>
+</html>

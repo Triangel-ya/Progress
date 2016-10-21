@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>获取最长子回文串</title>
+	<style type="text/css">
+
+	</style>
+	<script type="text/javascript">
+		/*
+		问题描述：给定一个字符串，求它的最长回文子串的长度。
+		其他解法：http://blog.csdn.net/fendouzhe123/article/details/39496299
+		*/
+		//方法一：暴力法
+		function longestPalindrome1(str){
+			var len = str.length;
+			var resultStr = "";
+			var resultNum = 0;
+			var result;
+			if(len === 0){
+				result = "最长字符串为：空，长度为：0";
+				return result;
+			}
+			if(len === 1){
+				result = "最长字符串为：" + str + "，长度为：1";
+				return result;
+			}
+			for(var i=0; i<len-1; i++){
+				for(var j=i; j<len; j++){
+					var eachStr = str.substring(i,j+1).toLowerCase();
+					var reverseStr = eachStr.split('').reverse().join('');
+					if(eachStr === reverseStr){
+						if((j-i+1) > resultNum){
+							resultNum = j-i+1;
+							resultStr = eachStr;
+						}
+					}
+				}
+			}
+			result = "最长字符串为：" + resultStr + "，长度为：" + resultNum;
+			return result;
+		}
+
+		//方法二：动态规划的方法。开辟一个P[i][j]用来表示str[i..j]是否为回文，P[i][j]的状态转移方程如下：
+		// 当i==j时，P[i][j]=true
+		// 当i+1==j时，P[i][j]=str[i]==str[j]
+		// 其他，P[i][j]=P[i+1][j-1]&&(str[i]==str[j])
+		function longestPalindrome2(str){
+			var str = str.toLowerCase();
+			var i,j,L,p={},gap="_",len=str.length;
+			for(i=0; i<len; i++){
+				p[i+gap+i] = true;
+			}
+			for(L=2; L<len; L++){
+				for(i=0; i<len; i++){
+					j = i + L -1;
+					if(L == 2){
+						p[i+gap+j] = (str[i]===str[j]);
+					}
+					else{
+						p[i+gap+j] = ((str[i]===str[j])&&p[(i+1)+gap+(j-1)]);
+					}
+				}
+			}
+			return p;
+		}
+
+
+		//调用
+		window.onload = function(){
+			var first = document.getElementById("first");
+			var second = document.getElementById("second");
+			var show = document.getElementById("show");
+			first.onclick = function(){
+				var str = document.getElementById("str").value;
+				var result = longestPalindrome1(str);
+				show.innerHTML = result;
+			}
+			second.onclick = function(){
+				var str = document.getElementById("str").value;
+				var result = longestPalindrome2(str);
+				var resultNum = 0;
+				for(var i in result){
+					var num = i.split('_');
+					var numLen = parseInt(num[1]) - parseInt(num[0]);
+					if((result[i] === true) && numLen > resultNum){
+						resultNum = numLen;
+					}
+				}
+				show.innerHTML = resultNum;
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type="text" id="str">
+	<input type="button" value="方法一" id="first">
+	<input type="button" value="方法二" id="second">
+	<div id="show" style="margin:20px 0;">
+		
+	</div>
+</body>
+</html>
